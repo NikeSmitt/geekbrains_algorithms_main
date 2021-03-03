@@ -7,15 +7,18 @@
 # запрашивать знак операции. Также она должна сообщать пользователю о невозможности деления на ноль, если он ввел его
 # в качестве делителя.
 
-def task_1():
+while True:
     a = float(input('Введите 1-ое число -> '))
     b = float(input('Введите 2-ое число -> '))
     oper = input('Введитн операцию (+ - * /) или 0 для выхода -> ')
     res = 0
 
+    while oper != '0' and oper != '+' and oper != '-' and oper != '*' and oper != '/':
+        oper = input('Введите операцию (+ - * /) или 0 для выхода -> ')
+
     if oper == '0':
         print('До свидания')
-        return
+        break
     elif oper == '+':
         res = a + b
     elif oper == '-':
@@ -27,13 +30,5 @@ def task_1():
             res = a / b
         else:
             print('Ошибка! Попытка деления на ноль.')
-            return task_1()
-    else:
-        while oper != '0' and oper != '+' and oper != '-' and oper != '*' and oper != '/':
-            oper = input('Введите операцию (+ - * /) или 0 для выхода -> ')
-
+            continue
     print(f'{a} {oper} {b} = {res}')
-    return task_1()
-
-
-task_1()

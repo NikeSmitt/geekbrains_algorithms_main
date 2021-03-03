@@ -16,5 +16,8 @@ print("""Программа, проверяющая, что : 1 + 2 + ... + n = 
 n = random.randint(1, 100)
 res = task_7(n)
 res_equation = n * (n + 1) // 2
+if res == res_equation:
+    print('Совпадают')
+else:
+    print('Не совпадают')
 print(f'1 + 2 + ... + {n} = {res}\n{n} * ({n} + 1) / 2 = {res_equation}')
-print('Доказанно')

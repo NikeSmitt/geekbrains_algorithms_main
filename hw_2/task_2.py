@@ -6,8 +6,7 @@
 def analise(value, odd=0, even=0):
     if value == 0:
         return odd, even
-    last = value % 10
-    if last % 2:
+    if value % 2:
         odd += 1
     else:
         even += 1
