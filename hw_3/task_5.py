@@ -8,10 +8,16 @@ MIN_ITEM = -100
 MAX_ITEM = 50
 src_array = [random.randint(MIN_ITEM, MAX_ITEM) for _ in range(SIZE)]
 
-max_negative_idx = 0
-for i in range(1, len(src_array)):
-    if 0 > src_array[i] > src_array[max_negative_idx]:
+max_negative_idx = -1
+max_negative_value = float('-inf')
+for i, value in enumerate(src_array):
+    if 0 > value > max_negative_value:
         max_negative_idx = i
+        max_negative_value = value
 
 print(src_array)
-print(f'Максимальный отрицательный элемент: {src_array[max_negative_idx]}')
+if max_negative_idx > -1:
+    print(f'Максимальный отрицательный элемент: {src_array[max_negative_idx]} в позиции {max_negative_idx}')
+else:
+    print('Максимальный отрицательный элемент отсутствует')
+
