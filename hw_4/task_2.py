@@ -34,7 +34,8 @@ def without_eratosfen(n):
 # С использованием решета Эратосфена
 def with_eratosfen(n):
 
-    primes = [True] * n
+    INC = 100
+    primes = [True] * INC
     primes[0] = primes[1] = False
 
     # основной счетчик простых чисел
@@ -63,7 +64,7 @@ def with_eratosfen(n):
 
         # если расширили, то просеивание необходимо повторять
         if need_to_extend:
-            primes.extend([True] * n)
+            primes.extend([True] * INC)
             idx = 0
             count = 0
             continue
@@ -76,13 +77,15 @@ def with_eratosfen(n):
 def test_tasks(func):
     primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
     for i, value in enumerate(primes):
-        assert without_eratosfen(i + 1) == value, f'{func.__name__} Test failed on {i + 1} number - {value}'
+        assert func(i + 1) == value, f'{func.__name__} Test failed on {i + 1} number - {value}'
     else:
         print(f'{func.__name__}: Tests OK')
 
 
 test_tasks(without_eratosfen)
 test_tasks(with_eratosfen)
+
+
 
 
 # print(timeit.timeit('without_eratosfen(10)', number=100, globals=globals())) # 0.0016512520000000058
