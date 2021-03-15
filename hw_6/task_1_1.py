@@ -9,6 +9,7 @@
 
 import sys
 from collections import defaultdict
+import random
 
 
 def consider_memory(obj, memory_used_list):
@@ -93,10 +94,36 @@ def add_two_hex(v1, v2, hex_to_int, int_to_hex):
     return output
 
 
-# данная переменная уже учтена в функции
-res = add_two_hex('1AB', '2AB', hex_int, int_hex)
-print(res)
-print(f'Суммарное потребление памяти для переменных -> {sum(memory_used):_} байт')
-# Суммарное потребление памяти для переменных -> 5_001 байт
-print(f'Колличество учтенных объектов: {len(memory_used)}')
-# Колличество учтенных объектов: 89
+
+
+
+def check_add(v1, v2):
+    v1_int = int(f'0x{v1}', base=16)
+    v2_int = int(f'0x{v2}', base=16)
+    return hex(v1_int + v2_int)[2:].upper()
+
+
+def main():
+
+    # проверка
+    LOWER = 10
+    UPPER = 1000
+    COUNT = 100
+    for _ in range(COUNT):
+        a = hex(random.randint(LOWER, UPPER))[2:].upper()
+        b = hex(random.randint(LOWER, UPPER))[2:].upper()
+
+        checked_res, my_res = check_add(a, b), add_two_hex(a, b, hex_to_int=hex_int, int_to_hex=int_hex)
+        assert my_res == checked_res, f"Failed with {a} + {b} -> {my_res} != {checked_res}"
+
+    print('Tests OK')
+
+
+if __name__ == "__main__":
+    # main()
+    res = add_two_hex('1AB', '2AB', hex_int, int_hex)
+    print(res)
+    print(f'Суммарное потребление памяти для переменных -> {sum(memory_used):_} байт')
+    # Суммарное потребление памяти для переменных -> 5_001 байт
+    print(f'Колличество учтенных объектов: {len(memory_used)}')
+    # Колличество учтенных объектов: 89

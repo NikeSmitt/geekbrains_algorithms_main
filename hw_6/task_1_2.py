@@ -6,6 +6,7 @@
 # памяти.
 
 # platform: MacOS 11.2.2, x64 Intel Core i7, python 3.9
+import random
 from collections import deque
 import sys
 
@@ -74,7 +75,7 @@ def add_two_hex_2(first, second):
         output.appendleft(spam)
 
     if carry == 1:
-        output.append(carry)
+        output.appendleft(str(carry))
 
     consider_memory(spam, memory_used)
     consider_memory(carry, memory_used)
@@ -83,11 +84,40 @@ def add_two_hex_2(first, second):
     return output
 
 
-res = add_two_hex_2('1AB', '2AB')
-print(''.join(res))
 
-print(f'Суммарное потребление памяти для переменных -> {sum(memory_used):_} байт')
-# Суммарное потребление памяти для переменных -> 7_740 байт
 
-print(f'Колличество учтенных объектов: {len(memory_used)}')
-# Колличество учтенных объектов: 89
+
+
+def check_add(v1, v2):
+    v1_int = int(f'0x{v1}', base=16)
+    v2_int = int(f'0x{v2}', base=16)
+    return hex(v1_int + v2_int)[2:].upper()
+
+
+def main():
+
+    # проверка
+    LOWER = 10
+    UPPER = 1000
+    COUNT = 100
+    for _ in range(COUNT):
+        a = hex(random.randint(LOWER, UPPER))[2:].upper()
+        b = hex(random.randint(LOWER, UPPER))[2:].upper()
+
+        checked_res = check_add(a, b)
+        my_res = ''.join(add_two_hex_2(a, b))
+        assert my_res == checked_res, f"Failed with {a} + {b} -> {my_res} != {checked_res}"
+
+    print('Tests OK')
+
+
+if __name__ == "__main__":
+    # main()
+    res = add_two_hex_2('1AB', '2AB')
+    print(''.join(res))
+
+    print(f'Суммарное потребление памяти для переменных -> {sum(memory_used):_} байт')
+    # Суммарное потребление памяти для переменных -> 7_740 байт
+
+    print(f'Колличество учтенных объектов: {len(memory_used)}')
+    # Колличество учтенных объектов: 89
