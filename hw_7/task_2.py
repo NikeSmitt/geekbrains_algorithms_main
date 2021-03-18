@@ -7,16 +7,14 @@ def merge(left, right):
     output = [None] * (len(left) + len(right))
 
     # данный финт нужен чтобы упростисть логику слияния и уменьшить количество кода
-    left_ = left[:]
-    left_.append(float('inf'))
-    right_ = right[:]
-    right_.append(float('inf'))
+    left.append(float('inf'))
+    right.append(float('inf'))
 
     # индексы массивов левый и правый
     r_idx = l_idx = 0
 
-    for i in range(len(left_) + len(right_) - 2):   # -2 нужно, чтобы не учитывать добавленные бесконечности
-        if left_[l_idx] < right_[r_idx]:
+    for i in range(len(left) + len(right) - 2):   # -2 нужно, чтобы не учитывать добавленные бесконечности
+        if left[l_idx] < right[r_idx]:
             output[i] = left[l_idx]
             l_idx += 1
         else:
